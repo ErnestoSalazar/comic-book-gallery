@@ -29,8 +29,21 @@
         <h5>Description:</h5>
         <div>@Html.Raw(description)</div>
 
-        <h5>Artists:</h5>
-        <div>@artists</div>
+
+        @if (artists.Length > 0)
+        {
+            <h5>Artists:</h5>
+            <div>
+                <ul>
+                    @foreach (var artist in artists)
+                    {
+                        // <text> let Razor know that we want switch from wiriting code back to wiriting content
+                        <li>@artist</li>
+                        //<text>* @artist</text>
+                    }
+                </ul>
+            </div>
+        }
     </div>
 </body>
 </html>
