@@ -1,38 +1,29 @@
 ﻿@{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Comic Book Detail";
+
     // Html.Raw() let us print html strings without scpaing it
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
+<h1>@ViewBag.SeriesTitle</h1>
+<h2>Issue #@ViewBag.IssueNumber</h2>
+
+<h5>Description:</h5>
+<div>@Html.Raw(ViewBag.Description)</div>
+
+
+@if (ViewBag.Artists.Length > 0)
+{
+    <h5>Artists:</h5>
     <div>
-        <h1>@ViewBag.SeriesTitle</h1>
-        <h2>Issue #@ViewBag.IssueNumber</h2>
-
-        <h5>Description:</h5>
-        <div>@Html.Raw(ViewBag.Description)</div>
-
-
-        @if (ViewBag.Artists.Length > 0)
-        {
-            <h5>Artists:</h5>
-            <div>
-                <ul>
-                    @foreach (var artist in ViewBag.Artists)
-                    {
-                        // <text> let Razor know that we want switch from wiriting code back to wiriting content
-                        <li>@artist</li>
-                        //<text>* @artist</text>
-                    }
-                </ul>
-            </div>
-        }
+        <ul>
+            @foreach (var artist in ViewBag.Artists)
+            {
+                // <text> let Razor know that we want switch from wiriting code back to wiriting content
+                <li>@artist</li>
+                //<text>* @artist</text>
+            }
+        </ul>
     </div>
-</body>
-</html>
+}
