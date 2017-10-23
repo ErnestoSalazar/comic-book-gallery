@@ -1,4 +1,5 @@
-﻿using ComicBookGallery.Models;
+﻿using ComicBookGallery.Data;
+using ComicBookGallery.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,23 +11,20 @@ namespace ComicBookGallery.Controllers
     // Controller classes need to be public otherwise MVC won't be able to find them and use them
     public class ComicBooksController: Controller
     {
+        private ComicBookRepository _comicBookRepository = null;
 
-        public ActionResult Detail()
+        public ComicBooksController()
         {
-            var comicBook = new ComicBook()
+            _comicBookRepository = new ComicBookRepository();
+        }
+
+        public ActionResult Detail(int? id) // ? means that we can pass a null for the id parameter
+        {
+            if(id == null)
             {
-                SeriesTitle = "The amazing Spiderman",
-                IssueNumber = 700,
-                DescriptionHtml = "<p>Final issue! Witness the final hours of Doctor Octopus' life and his one, last, great act of revenge! Even if Spider-Man survives... <strong>will Peter Parker?</strong></p>",
-                Artists = new Artist[]
-                {
-                    new Artist(){ Name="Dan Slott", Role = "Script"},
-                    new Artist(){ Name="Humberto Ramos", Role = "Pencils"},
-                    new Artist(){ Name="Victor Olazaba", Role = "Inks"},
-                    new Artist(){ Name="Edgar Delgado", Role = "Colors"},
-                    new Artist(){ Name="Chris Eliopoulos", Role = "Letters"}
-                }
-            };
+                return HttpNotFound();
+            }
+            var comicBook = _comicBookRepository.GetComicBook(id.Value); // when ussing Nullable we need to ask for parameter Value or cast
             // ViewBag is an object in MVC that allow us to pass data from a controller to a view
             
 
