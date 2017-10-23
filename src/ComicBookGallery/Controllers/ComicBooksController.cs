@@ -18,6 +18,12 @@ namespace ComicBookGallery.Controllers
             _comicBookRepository = new ComicBookRepository();
         }
 
+        public ActionResult Index()
+        {
+            ComicBook[] comicBooks = _comicBookRepository.GetComicBooks();
+            return View(comicBooks);
+        }
+
         public ActionResult Detail(int? id) // ? means that we can pass a null for the id parameter
         {
             if(id == null)
